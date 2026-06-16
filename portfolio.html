@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edgemart — Long-Term Portfolio Callouts</title>
+  <style>
+    :root {
+      --bg:      #0d1117;
+      --card:    #131c27;
+      --border:  #1e2d3d;
+      --cyan:    #00e5c8;
+      --red:     #ff4d4d;
+      --white:   #ffffff;
+      --muted:   #8b9ab0;
+      --win-bg:  rgba(0, 229, 200, 0.04);
+      --loss-bg: rgba(255, 77, 77, 0.05);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--white); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased; }
+    .container { max-width: 960px; margin: 0 auto; padding: 56px 24px 80px; }
+
+    .nav { margin-bottom: 40px; }
+    .nav a { color: var(--cyan); font-size: 12px; font-weight: 700; letter-spacing: 2px; text-decoration: none; }
+    .nav a:hover { opacity: .75; }
+
+    .page-header { margin-bottom: 36px; }
+    .page-header .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 4px; color: var(--cyan); margin-bottom: 10px; }
+    .page-header h1 { font-size: clamp(32px, 6vw, 52px); font-weight: 900; letter-spacing: -2px; margin-bottom: 8px; }
+    .page-header .sub { color: var(--muted); font-size: 14px; line-height: 1.6; max-width: 520px; }
+
+    .table-wrap { border: 1px solid var(--border); overflow: hidden; margin-bottom: 20px; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    thead th {
+      background: var(--card);
+      padding: 12px 20px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+    }
+    thead th.hl { color: var(--cyan); }
+    thead th.r  { text-align: right; }
+
+    tbody tr { border-bottom: 1px solid rgba(30,45,61,0.6); }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr.win  { background: var(--win-bg); }
+    tbody tr.loss { background: var(--loss-bg); }
+
+    td { padding: 13px 20px; }
+    td.date  { color: var(--muted); font-size: 13px; width: 120px; }
+    td.emoji { font-size: 17px; width: 36px; padding-right: 4px; }
+
+    .ticker-cell { font-size: 18px; font-weight: 900; letter-spacing: 1px; }
+    .action-label {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      padding: 2px 8px;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+    .action-BUY         { background: rgba(0,229,200,.12); color: var(--cyan); }
+    .action-DOUBLE_DOWN { background: rgba(255,180,0,.1);  color: #ffb400; }
+    .action-SELL        { background: rgba(255,77,77,.1);   color: var(--red); }
+    .action-TRIM        { background: rgba(255,77,77,.08);  color: #ff9060; }
+
+    .result-win  { color: var(--cyan); font-weight: 800; font-size: 12px; letter-spacing: 1px; text-align: right; }
+    .result-loss { color: var(--red);  font-weight: 800; font-size: 12px; letter-spacing: 1px; text-align: right; }
+    .result-na   { color: var(--muted); font-size: 12px; text-align: right; }
+
+    .empty { text-align: center; padding: 56px 24px; color: var(--muted); font-size: 14px; }
+
+    .note { font-size: 12px; color: var(--muted); text-align: center; }
+
+    footer { border-top: 1px solid var(--border); padding: 24px 0; text-align: center; margin-top: 40px; }
+    footer p { font-size: 12px; color: var(--muted); }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <nav class="nav"><a href="index.html">&larr; BACK TO EDGEMART</a></nav>
+
+  <div class="page-header">
+    <p class="eyebrow">CLAUDE PORTFOLIO MANAGER</p>
+    <h1>LONG-TERM PICKS</h1>
+    <p class="sub">
+      Every BUY, SELL, and TRIM called by the autonomous Claude Portfolio Manager —
+      pulled live from our server, newest first.
+    </p>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:36px"></th>
+          <th class="date-col">DATE</th>
+          <th>TICKER &amp; ACTION</th>
+          <th class="r hl">RESULT</th>
+        </tr>
+      </thead>
+      <tbody id="tbody">
+        <tr><td colspan="4" class="empty">Loading...</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="note">Showing up to 100 most recent callouts from monthly rebalances.</p>
+
+</div>
+<footer><div class="container"><p>Past performance &ne; future results. Not financial advice. Trading involves risk of loss.</p></div></footer>
+
+<script>
+const API = 'https://auto-trade-ro8k.onrender.com';
+
+async function load() {
+  const tbody = document.getElementById('tbody');
+  try {
+    const d = await (await fetch(`${API}/public-claude-callouts`)).json();
+    const rows = d.callouts || [];
+
+    if (!rows.length) {
+      tbody.innerHTML = '<tr><td colspan="4" class="empty">No callouts yet — check back after the next monthly rebalance.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = '';
+    rows.forEach(r => {
+      const tr = document.createElement('tr');
+      if (r.won === true)  tr.className = 'win';
+      if (r.won === false) tr.className = 'loss';
+
+      let resultHtml;
+      if (r.won === true)  resultHtml = '<td class="result-win">WIN</td>';
+      else if (r.won === false) resultHtml = '<td class="result-loss">LOSS</td>';
+      else resultHtml = '<td class="result-na">OPEN</td>';
+
+      const actionClass = 'action-' + r.action;
+      tr.innerHTML =
+        `<td class="emoji">${r.emoji}</td>` +
+        `<td class="date">${r.date}</td>` +
+        `<td><span class="ticker-cell">${r.ticker}</span>` +
+        `<span class="action-label ${actionClass}">${r.action.replace('_', ' ')}</span></td>` +
+        resultHtml;
+      tbody.appendChild(tr);
+    });
+  } catch(e) {
+    tbody.innerHTML = '<tr><td colspan="4" class="empty">Failed to load. Try again shortly.</td></tr>';
+    console.error(e);
+  }
+}
+load();
+</script>
+</body>
+</html>

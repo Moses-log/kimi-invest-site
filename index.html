@@ -298,6 +298,9 @@
         <tbody id="tbody"></tbody>
       </table>
     </div>
+    <div style="text-align:center; margin-top:16px;">
+      <a href="trades.html" id="view-all-link" style="color:var(--cyan);font-size:13px;font-weight:700;letter-spacing:2px;text-decoration:none;">VIEW ALL TRADES &rarr;</a>
+    </div>
   </section>
 
   <p class="summary" id="summary">&nbsp;</p>
@@ -385,7 +388,9 @@ function buildChart(rows) {
 function buildTable(rows) {
   const tbody = document.getElementById('tbody');
   tbody.innerHTML = '';
-  rows.forEach(r => {
+  const preview = rows.slice(-10);
+  document.getElementById('view-all-link').textContent = `VIEW ALL ${rows.length} TRADES →`;
+  preview.forEach(r => {
     const tr = document.createElement('tr');
     tr.className = r.won ? 'win' : 'loss';
     const sign  = r.trade_pct >= 0 ? '+' : '';
