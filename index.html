@@ -11,10 +11,11 @@
       --card:    #0e0e09;
       --border:  #2a2500;
       --cyan:    #FFE000;
+      --green:   #00C853;
       --red:     #ff4d4d;
       --white:   #ffffff;
       --muted:   #7a7050;
-      --win-bg:  rgba(255, 224, 0, 0.05);
+      --win-bg:  rgba(0, 200, 83, 0.05);
       --loss-bg: rgba(255, 77, 77, 0.05);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -130,10 +131,10 @@
     td { padding: 11px 16px; font-variant-numeric: tabular-nums; }
     td.num  { color: var(--muted); font-size: 12px; width: 44px; }
     td.r    { text-align: right; }
-    td.cyan { color: var(--cyan); font-weight: 700; text-align: right; }
+    td.cyan { color: var(--green); font-weight: 700; text-align: right; }
     td.red  { color: var(--red);  font-weight: 700; text-align: right; }
-    td.win-badge  { color: var(--cyan); font-weight: 800; font-size: 12px; letter-spacing: 1px; text-align: right; }
-    td.loss-badge { color: var(--red);  font-weight: 800; font-size: 12px; letter-spacing: 1px; text-align: right; }
+    td.win-badge  { color: var(--green); font-weight: 800; font-size: 12px; letter-spacing: 1px; text-align: right; }
+    td.loss-badge { color: var(--red);   font-weight: 800; font-size: 12px; letter-spacing: 1px; text-align: right; }
 
     .summary {
       text-align: center;
@@ -222,7 +223,7 @@
     }
     .free-tag {
       display: inline-block;
-      background: rgba(0,229,200,0.12);
+      background: rgba(255,224,0,0.12);
       color: var(--cyan);
       font-size: 11px;
       font-weight: 700;
@@ -246,17 +247,17 @@
       transition: opacity .15s;
       animation: glow 2.6s ease-in-out infinite;
     }
-    .btn:hover { opacity: .85; animation: none; box-shadow: 0 0 36px rgba(0,229,200,.5); }
+    .btn:hover { opacity: .85; animation: none; box-shadow: 0 0 36px rgba(255,224,0,.5); }
     @keyframes glow {
-      0%,100% { box-shadow: 0 0 0 rgba(0,229,200,0); }
-      50%      { box-shadow: 0 0 30px rgba(0,229,200,.35); }
+      0%,100% { box-shadow: 0 0 0 rgba(255,224,0,0); }
+      50%      { box-shadow: 0 0 30px rgba(255,224,0,.4); }
     }
     .cancel { font-size: 12px; color: var(--muted); }
 
     /* ── Claude Section ─────────────────────────────────────────────────── */
     .claude-section {
       padding: 72px 0 80px;
-      border-top: 1px solid var(--border);
+      border-top: 2px solid rgba(255,224,0,.35);
     }
     .claude-header { text-align: center; margin-bottom: 48px; }
     .claude-header .eyebrow {
@@ -285,6 +286,7 @@
     .claude-how {
       background: var(--card);
       border: 1px solid var(--border);
+      border-left: 3px solid var(--cyan);
       padding: 28px;
     }
     .claude-how h3 {
@@ -325,12 +327,22 @@
       display: inline-block;
       border: 1px solid var(--cyan);
       color: var(--cyan);
-      background: transparent;
-      font-size: 12px; font-weight: 700; letter-spacing: 3px;
-      padding: 14px 36px; text-decoration: none;
-      transition: background .15s, color .15s;
+      background: rgba(255,224,0,0.05);
+      font-size: 13px; font-weight: 700; letter-spacing: 3px;
+      padding: 16px 44px; text-decoration: none;
+      transition: background .15s, color .15s, box-shadow .15s;
+      animation: glow-ghost 3s ease-in-out infinite;
     }
-    .btn-ghost:hover { background: var(--cyan); color: #041009; }
+    .btn-ghost:hover {
+      background: var(--cyan);
+      color: #0a0800;
+      animation: none;
+      box-shadow: 0 0 28px rgba(255,224,0,.45);
+    }
+    @keyframes glow-ghost {
+      0%,100% { box-shadow: 0 0 0 rgba(255,224,0,0); }
+      50%      { box-shadow: 0 0 18px rgba(255,224,0,.25); }
+    }
 
     /* ── Footer ─────────────────────────────────────────────────────────── */
     footer {
@@ -530,14 +542,14 @@ function buildChart(rows) {
       labels: rows.map(r => r.trade),
       datasets: [{
         data: rows.map(r => r.pct),
-        borderColor: '#FFE000',
+        borderColor: '#00C853',
         borderWidth: 2,
-        pointBackgroundColor: rows.map(r => r.won ? '#FFE000' : '#ff4d4d'),
-        pointBorderColor:     rows.map(r => r.won ? '#FFE000' : '#ff4d4d'),
+        pointBackgroundColor: rows.map(r => r.won ? '#00C853' : '#ff4d4d'),
+        pointBorderColor:     rows.map(r => r.won ? '#00C853' : '#ff4d4d'),
         pointRadius: 5,
         pointHoverRadius: 7,
         tension: 0,
-        fill: { target: 'origin', above: 'rgba(255,224,0,0.06)' },
+        fill: { target: 'origin', above: 'rgba(0,200,83,0.06)' },
       }]
     },
     options: {

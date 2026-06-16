@@ -13,7 +13,8 @@
       --red:     #ff4d4d;
       --white:   #ffffff;
       --muted:   #7a7050;
-      --win-bg:  rgba(255, 224, 0, 0.05);
+      --green:   #00C853;
+      --win-bg:  rgba(0, 200, 83, 0.05);
       --loss-bg: rgba(255, 77, 77, 0.05);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -71,9 +72,9 @@
     td { padding: 11px 16px; font-variant-numeric: tabular-nums; }
     td.num  { color: var(--muted); font-size: 12px; width: 44px; }
     td.r    { text-align: right; }
-    td.cyan { color: var(--cyan); font-weight: 700; text-align: right; }
+    td.cyan { color: var(--green); font-weight: 700; text-align: right; }
     td.red  { color: var(--red);  font-weight: 700; text-align: right; }
-    td.win-badge  { color: var(--cyan); font-weight: 800; font-size: 12px; letter-spacing: 1px; text-align: right; }
+    td.win-badge  { color: var(--green); font-weight: 800; font-size: 12px; letter-spacing: 1px; text-align: right; }
     td.loss-badge { color: var(--red);  font-weight: 800; font-size: 12px; letter-spacing: 1px; text-align: right; }
 
     .note { font-size: 12px; color: var(--muted); text-align: center; }
