@@ -7,14 +7,14 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <style>
     :root {
-      --bg:      #0d1117;
-      --card:    #131c27;
-      --border:  #1e2d3d;
-      --cyan:    #00e5c8;
+      --bg:      #000000;
+      --card:    #0e0e09;
+      --border:  #2a2500;
+      --cyan:    #FFE000;
       --red:     #ff4d4d;
       --white:   #ffffff;
-      --muted:   #8b9ab0;
-      --win-bg:  rgba(0, 229, 200, 0.04);
+      --muted:   #7a7050;
+      --win-bg:  rgba(255, 224, 0, 0.05);
       --loss-bg: rgba(255, 77, 77, 0.05);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -237,7 +237,7 @@
     .btn {
       display: inline-block;
       background: var(--cyan);
-      color: #041009;
+      color: #0a0800;
       font-size: 14px;
       font-weight: 900;
       letter-spacing: 3px;
@@ -313,9 +313,9 @@
       color: var(--white); margin-bottom: 6px;
     }
     .signal-card .sig-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
-    .signal-card.buy   { border-color: rgba(0,229,200,.25); }
-    .signal-card.dd    { border-color: rgba(255,180,0,.2); }
-    .signal-card.trim  { border-color: rgba(255,144,96,.2); }
+    .signal-card.buy   { border-color: rgba(255,224,0,.3); }
+    .signal-card.dd    { border-color: rgba(255,160,0,.25); }
+    .signal-card.trim  { border-color: rgba(255,100,50,.2); }
     .signal-card.sell  { border-color: rgba(255,77,77,.2); }
 
     .claude-cta-row {
@@ -325,6 +325,7 @@
       display: inline-block;
       border: 1px solid var(--cyan);
       color: var(--cyan);
+      background: transparent;
       font-size: 12px; font-weight: 700; letter-spacing: 3px;
       padding: 14px 36px; text-decoration: none;
       transition: background .15s, color .15s;
@@ -529,14 +530,14 @@ function buildChart(rows) {
       labels: rows.map(r => r.trade),
       datasets: [{
         data: rows.map(r => r.pct),
-        borderColor: '#00e5c8',
+        borderColor: '#FFE000',
         borderWidth: 2,
-        pointBackgroundColor: rows.map(r => r.won ? '#00e5c8' : '#ff4d4d'),
-        pointBorderColor:     rows.map(r => r.won ? '#00e5c8' : '#ff4d4d'),
+        pointBackgroundColor: rows.map(r => r.won ? '#FFE000' : '#ff4d4d'),
+        pointBorderColor:     rows.map(r => r.won ? '#FFE000' : '#ff4d4d'),
         pointRadius: 5,
         pointHoverRadius: 7,
         tension: 0,
-        fill: { target: 'origin', above: 'rgba(0,229,200,0.06)' },
+        fill: { target: 'origin', above: 'rgba(255,224,0,0.06)' },
       }]
     },
     options: {
