@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edgemart — SPY Trading Signals</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --bg:      #0d1117;
+      --card:    #131c27;
+      --border:  #1e2d3d;
+      --cyan:    #00e5c8;
+      --red:     #ff4d4d;
+      --white:   #ffffff;
+      --muted:   #8b9ab0;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 64px 28px; }
+
+    /* ── Hero ───────────────────────────────────────────────────────────────── */
+    .hero { margin-bottom: 56px; }
+    .hero .tagline {
+      color: var(--cyan);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-size: clamp(52px, 9vw, 100px);
+      font-weight: 900;
+      letter-spacing: -2px;
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+    .hero .date-range { color: var(--muted); font-size: 14px; }
+
+    /* ── Stats grid ─────────────────────────────────────────────────────────── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 36px;
+    }
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 22px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .stat-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--muted);
+    }
+    .stat-value       { font-size: 38px; font-weight: 800; color: var(--white); }
+    .stat-value.cyan  { color: var(--cyan); }
+
+    /* ── Chart ──────────────────────────────────────────────────────────────── */
+    .chart-wrapper { position: relative; height: 340px; margin-bottom: 14px; }
+    .chart-tagline {
+      color: var(--cyan);
+      font-size: 13px;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 72px;
+    }
+
+    /* ── CTA ────────────────────────────────────────────────────────────────── */
+    .cta {
+      text-align: center;
+      padding: 56px 0 72px;
+      border-top: 1px solid var(--border);
+    }
+    .cta h2 {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: 4px;
+      margin-bottom: 14px;
+    }
+    .spots {
+      color: var(--cyan);
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+    .pricing {
+      color: var(--muted);
+      font-size: 15px;
+      margin-bottom: 36px;
+    }
+    .pricing strong { color: var(--white); }
+    .btn {
+      display: inline-block;
+      background: var(--cyan);
+      color: #0a1612;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      padding: 18px 52px;
+      text-decoration: none;
+      transition: opacity .15s;
+    }
+    .btn:hover { opacity: .82; }
+
+    /* ── Footer ─────────────────────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 0;
+      text-align: center;
+    }
+    footer p { color: var(--muted); font-size: 12px; line-height: 1.7; }
+
+    @media (max-width: 640px) {
+      .stats-grid { grid-template-columns: 1fr; }
+      .stat-card  { padding: 18px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Hero -->
+  <section class="hero">
+    <p class="tagline">REAL MONEY &middot; EVERY TRADE &middot; PUBLIC</p>
+    <h1>EDGEMART</h1>
+    <p class="date-range" id="date-range">Loading...</p>
+  </section>
+
+  <!-- Stats -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <span class="stat-label">TRADES</span>
+      <span class="stat-value" id="stat-trades">&mdash;</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-label">WIN RATE</span>
+      <span class="stat-value cyan" id="stat-winrate">&mdash;</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-label">PROFIT FACTOR</span>
+      <span class="stat-value cyan" id="stat-pf">&mdash;</span>
+    </div>
+  </div>
+
+  <!-- Chart -->
+  <div class="chart-wrapper">
+    <canvas id="chart"></canvas>
+  </div>
+  <p class="chart-tagline">Up days and down days. Nothing hidden.</p>
+
+  <!-- CTA -->
+  <section class="cta">
+    <h2>EARLY ACCESS</h2>
+    <p class="spots" id="spots">Loading...</p>
+    <p class="pricing">Free for 14 days &mdash; then <strong>$14.99&thinsp;/&thinsp;month</strong></p>
+    <a href="YOUR_WHOP_URL" class="btn">JOIN EDGEMART &rarr;</a>
+  </section>
+
+</div>
+
+<footer>
+  <div class="container">
+    <p>Past performance &ne; future results. Not financial advice. Trading involves risk of loss.</p>
+  </div>
+</footer>
+
+<script>
+  const API = 'YOUR_RENDER_URL';
+  let _chart = null;
+
+  function buildChart(data) {
+    const labels      = data.map(d => d.trade);
+    const values      = data.map(d => d.pct);
+    const pointColors = data.map(d => d.won ? '#00e5c8' : '#ff4d4d');
+
+    const ctx = document.getElementById('chart').getContext('2d');
+    if (_chart) _chart.destroy();
+
+    _chart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [{
+          data: values,
+          borderColor: '#00e5c8',
+          borderWidth: 2,
+          pointBackgroundColor: pointColors,
+          pointBorderColor:     pointColors,
+          pointRadius: 5,
+          pointHoverRadius: 7,
+          tension: 0,
+          fill: { target: 'origin', above: 'rgba(0,229,200,0.06)' },
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false }, tooltip: {
+          callbacks: {
+            label: ctx => ` ${ctx.parsed.y.toFixed(2)}%`,
+          }
+        }},
+        scales: {
+          x: {
+            title: { display: true, text: 'Trade #', color: '#8b9ab0', font: { size: 12 } },
+            ticks: { color: '#8b9ab0' },
+            grid:  { color: '#1e2d3d' },
+          },
+          y: {
+            title: { display: true, text: 'Cumulative Return (%)', color: '#8b9ab0', font: { size: 12 } },
+            ticks: { color: '#8b9ab0', callback: v => v.toFixed(2) + '%' },
+            grid:  { color: '#1e2d3d' },
+          }
+        }
+      }
+    });
+  }
+
+  async function loadStats() {
+    try {
+      const res = await fetch(`${API}/public-stats`);
+      const d   = await res.json();
+
+      document.getElementById('date-range').textContent =
+        `Closed trades · ${d.date_range.from} – ${d.date_range.to}`;
+
+      document.getElementById('stat-trades').textContent  = d.trades;
+      document.getElementById('stat-winrate').textContent = d.win_rate + '%';
+      document.getElementById('stat-pf').textContent      = d.profit_factor;
+
+      const s = d.spots_remaining;
+      document.getElementById('spots').textContent =
+        `${s} of 15 spot${s === 1 ? '' : 's'} remaining`;
+
+      if (d.cumulative_returns.length) buildChart(d.cumulative_returns);
+    } catch (e) {
+      console.error('Failed to load stats:', e);
+    }
+  }
+
+  loadStats();
+  setInterval(loadStats, 5 * 60 * 1000);
+</script>
+</body>
+</html>
