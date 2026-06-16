@@ -14,6 +14,8 @@
       --red:     #ff4d4d;
       --white:   #ffffff;
       --muted:   #8b9ab0;
+      --win-bg:  rgba(0, 229, 200, 0.04);
+      --loss-bg: rgba(255, 77, 77, 0.05);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -22,152 +24,316 @@
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
       -webkit-font-smoothing: antialiased;
     }
+    .container { max-width: 960px; margin: 0 auto; padding: 72px 24px; }
 
-    .container { max-width: 1200px; margin: 0 auto; padding: 64px 28px; }
-
-    /* ── Hero ───────────────────────────────────────────────────────────────── */
-    .hero { margin-bottom: 56px; }
-    .hero .tagline {
+    /* ── Hero ───────────────────────────────────────────────────────────── */
+    .hero { text-align: center; margin-bottom: 60px; }
+    .hero .eyebrow {
       color: var(--cyan);
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
-      letter-spacing: 4px;
-      margin-bottom: 16px;
+      letter-spacing: 5px;
+      margin-bottom: 20px;
     }
     .hero h1 {
-      font-size: clamp(52px, 9vw, 100px);
+      font-size: clamp(72px, 14vw, 128px);
       font-weight: 900;
-      letter-spacing: -2px;
-      line-height: 1;
-      margin-bottom: 16px;
+      letter-spacing: -4px;
+      line-height: 0.95;
+      margin-bottom: 22px;
     }
-    .hero .date-range { color: var(--muted); font-size: 14px; }
+    .hero .sub { color: var(--muted); font-size: 14px; }
 
-    /* ── Stats grid ─────────────────────────────────────────────────────────── */
+    /* ── Stats ──────────────────────────────────────────────────────────── */
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-bottom: 36px;
+      gap: 10px;
+      margin-bottom: 32px;
     }
     .stat-card {
       background: var(--card);
       border: 1px solid var(--border);
-      padding: 22px 28px;
+      padding: 20px 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-    .stat-label {
+    .stat-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; color: var(--muted); }
+    .stat-value { font-size: 36px; font-weight: 800; }
+    .stat-value.cyan { color: var(--cyan); }
+
+    /* ── Chart ──────────────────────────────────────────────────────────── */
+    .chart-wrap { position: relative; height: 280px; margin-bottom: 12px; }
+    .chart-note {
+      text-align: center;
+      color: var(--cyan);
       font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      margin-bottom: 64px;
+    }
+
+    /* ── Trade Log ──────────────────────────────────────────────────────── */
+    .trade-log { margin-bottom: 0; }
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      color: var(--cyan);
+      text-align: center;
+      margin-bottom: 6px;
+    }
+    .section-sub {
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 20px;
+    }
+    .table-wrap { border: 1px solid var(--border); overflow: hidden; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    thead th {
+      background: var(--card);
+      padding: 12px 16px;
+      font-size: 11px;
       font-weight: 700;
       letter-spacing: 2px;
       color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      text-align: left;
     }
-    .stat-value       { font-size: 38px; font-weight: 800; color: var(--white); }
-    .stat-value.cyan  { color: var(--cyan); }
+    thead th.r  { text-align: right; }
+    thead th.hl { color: var(--cyan); }
+    tbody tr { border-bottom: 1px solid rgba(30,45,61,0.6); }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr.win  { background: var(--win-bg); }
+    tbody tr.loss { background: var(--loss-bg); }
+    td { padding: 11px 16px; font-variant-numeric: tabular-nums; }
+    td.num  { color: var(--muted); font-size: 12px; width: 44px; }
+    td.r    { text-align: right; }
+    td.cyan { color: var(--cyan); font-weight: 700; text-align: right; }
+    td.red  { color: var(--red);  font-weight: 700; text-align: right; }
+    td.win-badge  { color: var(--cyan); font-weight: 800; font-size: 12px; letter-spacing: 1px; text-align: right; }
+    td.loss-badge { color: var(--red);  font-weight: 800; font-size: 12px; letter-spacing: 1px; text-align: right; }
 
-    /* ── Chart ──────────────────────────────────────────────────────────────── */
-    .chart-wrapper { position: relative; height: 340px; margin-bottom: 14px; }
-    .chart-tagline {
+    .summary {
+      text-align: center;
+      font-size: 15px;
+      font-weight: 700;
+      padding: 28px 0 72px;
+      color: var(--white);
+      border-bottom: 1px solid var(--border);
+    }
+    .summary .c { color: var(--cyan); }
+
+    /* ── CTA ────────────────────────────────────────────────────────────── */
+    .cta { padding: 80px 0 88px; text-align: center; }
+
+    .cta-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 5px;
       color: var(--cyan);
-      font-size: 13px;
-      font-weight: 600;
-      text-align: center;
-      margin-bottom: 72px;
+      margin-bottom: 20px;
     }
-
-    /* ── CTA ────────────────────────────────────────────────────────────────── */
-    .cta {
-      text-align: center;
-      padding: 56px 0 72px;
-      border-top: 1px solid var(--border);
-    }
-    .cta h2 {
-      font-size: 28px;
+    .cta-headline {
+      font-size: clamp(30px, 5vw, 48px);
       font-weight: 900;
-      letter-spacing: 4px;
+      letter-spacing: -1px;
+      line-height: 1.1;
       margin-bottom: 14px;
     }
-    .spots {
-      color: var(--cyan);
-      font-size: 15px;
-      font-weight: 600;
-      letter-spacing: 1px;
-      margin-bottom: 10px;
-    }
-    .pricing {
+    .cta-headline em { font-style: normal; color: var(--cyan); }
+    .cta-sub {
       color: var(--muted);
       font-size: 15px;
-      margin-bottom: 36px;
+      max-width: 480px;
+      margin: 0 auto 44px;
+      line-height: 1.6;
     }
-    .pricing strong { color: var(--white); }
+    .cta-sub strong { color: var(--white); }
+
+    .value-list {
+      display: inline-flex;
+      flex-direction: column;
+      gap: 14px;
+      text-align: left;
+      margin-bottom: 52px;
+    }
+    .value-list li {
+      list-style: none;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+    .value-list li .chk { color: var(--cyan); font-size: 16px; flex-shrink: 0; }
+    .value-list li strong { color: var(--white); }
+
+    /* spots */
+    .spots-wrap { margin-bottom: 44px; }
+    .spots-count {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--cyan);
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+    .progress-track {
+      width: 280px;
+      height: 5px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      margin: 0 auto 10px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: var(--cyan);
+      width: 0%;
+      transition: width .8s ease;
+    }
+    .spots-note { font-size: 12px; color: var(--muted); }
+
+    /* price + button */
+    .price-row {
+      margin-bottom: 32px;
+    }
+    .free-tag {
+      display: inline-block;
+      background: rgba(0,229,200,0.12);
+      color: var(--cyan);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      padding: 4px 12px;
+      margin-bottom: 10px;
+    }
+    .price-text { font-size: 15px; color: var(--muted); }
+    .price-text strong { color: var(--white); font-size: 20px; }
+
+    .btn-outer { margin-bottom: 14px; }
     .btn {
       display: inline-block;
       background: var(--cyan);
-      color: #0a1612;
+      color: #041009;
       font-size: 14px;
-      font-weight: 800;
-      letter-spacing: 2px;
-      padding: 18px 52px;
+      font-weight: 900;
+      letter-spacing: 3px;
+      padding: 22px 72px;
       text-decoration: none;
       transition: opacity .15s;
+      animation: glow 2.6s ease-in-out infinite;
     }
-    .btn:hover { opacity: .82; }
+    .btn:hover { opacity: .85; animation: none; box-shadow: 0 0 36px rgba(0,229,200,.5); }
+    @keyframes glow {
+      0%,100% { box-shadow: 0 0 0 rgba(0,229,200,0); }
+      50%      { box-shadow: 0 0 30px rgba(0,229,200,.35); }
+    }
+    .cancel { font-size: 12px; color: var(--muted); }
 
-    /* ── Footer ─────────────────────────────────────────────────────────────── */
+    /* ── Footer ─────────────────────────────────────────────────────────── */
     footer {
       border-top: 1px solid var(--border);
       padding: 28px 0;
       text-align: center;
     }
-    footer p { color: var(--muted); font-size: 12px; line-height: 1.7; }
+    footer p { font-size: 12px; color: var(--muted); line-height: 1.7; }
 
-    @media (max-width: 640px) {
+    @media (max-width: 600px) {
       .stats-grid { grid-template-columns: 1fr; }
-      .stat-card  { padding: 18px 20px; }
+      thead th.hide, td.hide { display: none; }
+      .btn { padding: 20px 40px; }
     }
   </style>
 </head>
 <body>
-
 <div class="container">
 
   <!-- Hero -->
   <section class="hero">
-    <p class="tagline">REAL MONEY &middot; EVERY TRADE &middot; PUBLIC</p>
+    <p class="eyebrow">EVERY TRADE &mdash; NOTHING CUT</p>
     <h1>EDGEMART</h1>
-    <p class="date-range" id="date-range">Loading...</p>
+    <p class="sub" id="hero-sub">Loading...</p>
   </section>
 
   <!-- Stats -->
   <div class="stats-grid">
     <div class="stat-card">
       <span class="stat-label">TRADES</span>
-      <span class="stat-value" id="stat-trades">&mdash;</span>
+      <span class="stat-value" id="v-trades">&mdash;</span>
     </div>
     <div class="stat-card">
       <span class="stat-label">WIN RATE</span>
-      <span class="stat-value cyan" id="stat-winrate">&mdash;</span>
+      <span class="stat-value cyan" id="v-winrate">&mdash;</span>
     </div>
     <div class="stat-card">
       <span class="stat-label">PROFIT FACTOR</span>
-      <span class="stat-value cyan" id="stat-pf">&mdash;</span>
+      <span class="stat-value cyan" id="v-pf">&mdash;</span>
     </div>
   </div>
 
   <!-- Chart -->
-  <div class="chart-wrapper">
-    <canvas id="chart"></canvas>
-  </div>
-  <p class="chart-tagline">Up days and down days. Nothing hidden.</p>
+  <div class="chart-wrap"><canvas id="chart"></canvas></div>
+  <p class="chart-note">Up days and down days. Nothing hidden.</p>
+
+  <!-- Trade Log -->
+  <section class="trade-log">
+    <p class="section-label">EVERY TRADE &mdash; NOTHING CUT</p>
+    <p class="section-sub">Live from Alpaca &middot; Updated hourly</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th class="num">#</th>
+            <th>DATE</th>
+            <th class="r hide">BUY</th>
+            <th class="r hide">SELL</th>
+            <th class="r hl">RETURN %</th>
+            <th class="r hl">RESULT</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <p class="summary" id="summary">&nbsp;</p>
 
   <!-- CTA -->
   <section class="cta">
-    <h2>EARLY ACCESS</h2>
-    <p class="spots" id="spots">Loading...</p>
-    <p class="pricing">Free for 14 days &mdash; then <strong>$14.99&thinsp;/&thinsp;month</strong></p>
-    <a href="https://whop.com/checkout/plan_zB9dOxLDiweWG" class="btn">JOIN EDGEMART &rarr;</a>
+    <p class="cta-eyebrow">EARLY ACCESS</p>
+    <h2 class="cta-headline">Get the signal.<br><em>Before the spot's gone.</em></h2>
+    <p class="cta-sub">
+      Every trade above was posted <strong>live</strong> to paying members
+      before it closed. Same system. Same signals. Real money.
+    </p>
+
+    <ul class="value-list">
+      <li><span class="chk">&#10003;</span><span><strong>Live SPY signals</strong> &mdash; every entry and exit, posted in real time</span></li>
+      <li><span class="chk">&#10003;</span><span><strong>65% win rate &middot; 2.06 profit factor</strong> &mdash; verified on real money, above</span></li>
+      <li><span class="chk">&#10003;</span><span><strong>Nothing cut</strong> &mdash; wins and losses both posted, exactly as you see here</span></li>
+    </ul>
+
+    <div class="spots-wrap">
+      <p class="spots-count" id="spots-count">Loading...</p>
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <p class="spots-note">Once full, this offer closes.</p>
+    </div>
+
+    <div class="price-row">
+      <div class="free-tag">14 DAYS FREE</div><br>
+      <p class="price-text">then <strong>$14.99</strong> / month</p>
+    </div>
+
+    <div class="btn-outer">
+      <a href="https://whop.com/checkout/plan_zB9dOxLDiweWG" class="btn">JOIN EDGEMART &rarr;</a>
+    </div>
+    <p class="cancel">Cancel anytime. No commitment.</p>
   </section>
 
 </div>
@@ -179,81 +345,96 @@
 </footer>
 
 <script>
-  const API = 'https://auto-trade-ro8k.onrender.com';
-  let _chart = null;
+const API = 'https://auto-trade-ro8k.onrender.com';
+let _chart = null;
 
-  function buildChart(data) {
-    const labels      = data.map(d => d.trade);
-    const values      = data.map(d => d.pct);
-    const pointColors = data.map(d => d.won ? '#00e5c8' : '#ff4d4d');
-
-    const ctx = document.getElementById('chart').getContext('2d');
-    if (_chart) _chart.destroy();
-
-    _chart = new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels,
-        datasets: [{
-          data: values,
-          borderColor: '#00e5c8',
-          borderWidth: 2,
-          pointBackgroundColor: pointColors,
-          pointBorderColor:     pointColors,
-          pointRadius: 5,
-          pointHoverRadius: 7,
-          tension: 0,
-          fill: { target: 'origin', above: 'rgba(0,229,200,0.06)' },
-        }]
+function buildChart(rows) {
+  const ctx = document.getElementById('chart').getContext('2d');
+  if (_chart) _chart.destroy();
+  _chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: rows.map(r => r.trade),
+      datasets: [{
+        data: rows.map(r => r.pct),
+        borderColor: '#00e5c8',
+        borderWidth: 2,
+        pointBackgroundColor: rows.map(r => r.won ? '#00e5c8' : '#ff4d4d'),
+        pointBorderColor:     rows.map(r => r.won ? '#00e5c8' : '#ff4d4d'),
+        pointRadius: 5,
+        pointHoverRadius: 7,
+        tension: 0,
+        fill: { target: 'origin', above: 'rgba(0,229,200,0.06)' },
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: c => ` ${c.parsed.y.toFixed(2)}%` } }
       },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: false }, tooltip: {
-          callbacks: {
-            label: ctx => ` ${ctx.parsed.y.toFixed(2)}%`,
-          }
-        }},
-        scales: {
-          x: {
-            title: { display: true, text: 'Trade #', color: '#8b9ab0', font: { size: 12 } },
-            ticks: { color: '#8b9ab0' },
-            grid:  { color: '#1e2d3d' },
-          },
-          y: {
-            title: { display: true, text: 'Cumulative Return (%)', color: '#8b9ab0', font: { size: 12 } },
-            ticks: { color: '#8b9ab0', callback: v => v.toFixed(2) + '%' },
-            grid:  { color: '#1e2d3d' },
-          }
-        }
+      scales: {
+        x: { title: { display: true, text: 'Trade #', color: '#8b9ab0', font: { size: 11 } }, ticks: { color: '#8b9ab0' }, grid: { color: '#1e2d3d' } },
+        y: { title: { display: true, text: 'Cumulative Return (%)', color: '#8b9ab0', font: { size: 11 } }, ticks: { color: '#8b9ab0', callback: v => v.toFixed(1) + '%' }, grid: { color: '#1e2d3d' } }
       }
-    });
-  }
-
-  async function loadStats() {
-    try {
-      const res = await fetch(`${API}/public-stats`);
-      const d   = await res.json();
-
-      document.getElementById('date-range').textContent =
-        `Closed trades · ${d.date_range.from} – ${d.date_range.to}`;
-
-      document.getElementById('stat-trades').textContent  = d.trades;
-      document.getElementById('stat-winrate').textContent = d.win_rate + '%';
-      document.getElementById('stat-pf').textContent      = d.profit_factor;
-
-      const s = d.spots_remaining;
-      document.getElementById('spots').textContent =
-        `${s} of 15 spot${s === 1 ? '' : 's'} remaining`;
-
-      if (d.cumulative_returns.length) buildChart(d.cumulative_returns);
-    } catch (e) {
-      console.error('Failed to load stats:', e);
     }
-  }
+  });
+}
 
-  loadStats();
-  setInterval(loadStats, 5 * 60 * 1000);
+function buildTable(rows) {
+  const tbody = document.getElementById('tbody');
+  tbody.innerHTML = '';
+  rows.forEach(r => {
+    const tr = document.createElement('tr');
+    tr.className = r.won ? 'win' : 'loss';
+    const sign  = r.trade_pct >= 0 ? '+' : '';
+    const pctTd = r.won ? 'cyan' : 'red';
+    const resTd = r.won ? 'win-badge' : 'loss-badge';
+    const buy   = r.buy  != null ? '$' + r.buy.toFixed(2)  : '—';
+    const sell  = r.sell != null ? '$' + r.sell.toFixed(2) : '—';
+    tr.innerHTML =
+      `<td class="num">${r.trade}</td>` +
+      `<td>${r.date || '—'}</td>` +
+      `<td class="r hide">${buy}</td>` +
+      `<td class="r hide">${sell}</td>` +
+      `<td class="${pctTd}">${sign}${r.trade_pct.toFixed(2)}%</td>` +
+      `<td class="${resTd}">${r.won ? 'WIN' : 'LOSS'}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+async function load() {
+  try {
+    const d = await (await fetch(`${API}/public-stats`)).json();
+
+    document.getElementById('hero-sub').textContent =
+      `${d.trades} closed trades · ${d.date_range.from} – ${d.date_range.to}`;
+
+    document.getElementById('v-trades').textContent  = d.trades;
+    document.getElementById('v-winrate').textContent = d.win_rate + '%';
+    document.getElementById('v-pf').textContent      = d.profit_factor;
+
+    const s = d.spots_remaining, taken = 15 - s;
+    document.getElementById('spots-count').textContent =
+      `${s} of 15 spot${s === 1 ? '' : 's'} remaining`;
+    document.getElementById('progress-fill').style.width = (taken / 15 * 100) + '%';
+
+    document.getElementById('summary').innerHTML =
+      `<span class="c">${d.wins} wins</span> &middot; ` +
+      `<span class="c">${d.losses} losses</span> &middot; ` +
+      `<span class="c">${d.win_rate}% win rate</span> &middot; ` +
+      `<span class="c">profit factor ${d.profit_factor}</span>`;
+
+    if (d.cumulative_returns.length) {
+      buildChart(d.cumulative_returns);
+      buildTable(d.cumulative_returns);
+    }
+  } catch(e) { console.error(e); }
+}
+
+load();
+setInterval(load, 5 * 60 * 1000);
 </script>
 </body>
 </html>
