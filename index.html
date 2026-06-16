@@ -569,6 +569,54 @@
     .edu-coming-sub { font-size: 12px; color: var(--dim); letter-spacing: 1px; }
     .edu-coming .edu-grid { opacity: .2; pointer-events: none; user-select: none; }
 
+    /* ── TRACK RECORD ── */
+    .track-record { padding: 110px 0; border-top: 1px solid var(--border); }
+    .tr-stats {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px;
+      margin-bottom: 44px;
+    }
+    @media (max-width: 680px) { .tr-stats { grid-template-columns: repeat(2, 1fr); } }
+    .tr-stat {
+      background: var(--bg2); border: 1px solid var(--border);
+      padding: 24px 20px; text-align: center;
+    }
+    .tr-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; color: var(--dim); text-transform: uppercase; margin-bottom: 10px; }
+    .tr-val { font-size: 24px; font-weight: 800; color: var(--white); letter-spacing: -0.5px; }
+    .tr-val.g  { color: var(--green); }
+    .tr-val.rd { color: var(--red); }
+    .tr-chart-wrap {
+      background: var(--bg2); border: 1px solid var(--border);
+      padding: 28px; height: 340px; position: relative;
+    }
+    .tr-legend { display: flex; gap: 28px; justify-content: center; margin-top: 18px; }
+    .tr-leg-item { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--muted); }
+    .tr-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .tr-dot.y { background: var(--accent); }
+    .tr-dot.b { background: #5865F2; }
+    .tr-note { text-align: center; font-size: 11px; color: var(--dim); margin-top: 14px; }
+
+    /* ── HOW TO JOIN ── */
+    .how-join { padding: 110px 0; border-top: 1px solid var(--border); }
+    .steps { display: flex; flex-direction: column; margin-bottom: 48px; }
+    .step {
+      display: flex; align-items: flex-start; gap: 24px;
+      background: var(--bg2); border: 1px solid var(--border);
+      padding: 32px 36px; transition: border-color .2s;
+    }
+    .step:hover { border-color: var(--border-y); }
+    .step-connector { width: 1px; height: 28px; background: var(--border); margin: 0 0 0 56px; }
+    .step-num {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--adim); border: 1px solid var(--border-y);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; font-weight: 800; color: var(--accent); flex-shrink: 0;
+    }
+    .step-body h4 { font-size: 16px; font-weight: 700; color: var(--white); letter-spacing: -.3px; margin-bottom: 8px; }
+    .step-body p  { font-size: 13px; color: var(--muted); line-height: 1.7; }
+    .step-body code { font-size: 12px; background: var(--bg3); border: 1px solid var(--border); padding: 2px 7px; color: var(--accent); font-family: monospace; }
+    .steps-cta { text-align: center; }
+    @media (max-width: 600px) { .step { padding: 22px 20px; gap: 16px; } .step-connector { margin-left: 44px; } }
+
     /* ── DISCLAIMER ── */
     .disclaimer {
       border-top: 1px solid var(--border);
@@ -895,6 +943,43 @@
   </div>
 </section>
 
+<!-- ── KIMI PORTFOLIO MANAGER TRACK RECORD ─────────────────────────────── -->
+<section class="track-record" id="track-record">
+  <div class="wrap">
+    <div class="sec-hdr fade-up">
+      <p class="eyebrow">Track Record</p>
+      <h2>Kimi Portfolio Manager<br><em>vs. S&P 500</em></h2>
+      <p>Normalized since first rebalance — both indexed to 0% at inception.</p>
+    </div>
+    <div class="tr-stats stagger" id="tr-stats">
+      <div class="tr-stat">
+        <div class="tr-label">Portfolio Return</div>
+        <div class="tr-val g" id="tr-port">—</div>
+      </div>
+      <div class="tr-stat">
+        <div class="tr-label">S&amp;P 500 Return</div>
+        <div class="tr-val" id="tr-spy">—</div>
+      </div>
+      <div class="tr-stat">
+        <div class="tr-label">Alpha</div>
+        <div class="tr-val" id="tr-alpha">—</div>
+      </div>
+      <div class="tr-stat">
+        <div class="tr-label">Since</div>
+        <div class="tr-val" id="tr-since" style="font-size:17px">—</div>
+      </div>
+    </div>
+    <div class="tr-chart-wrap fade-up">
+      <canvas id="pm-chart"></canvas>
+    </div>
+    <div class="tr-legend fade-up">
+      <span class="tr-leg-item"><span class="tr-dot y"></span>Kimi Portfolio Manager</span>
+      <span class="tr-leg-item"><span class="tr-dot b"></span>S&amp;P 500</span>
+    </div>
+    <p class="tr-note fade-up">Since first rebalance · Updated monthly</p>
+  </div>
+</section>
+
 <!-- ── EDUCATIONAL RESOURCES ──────────────────────────────────────────── -->
 <section class="education" id="education">
   <div class="wrap">
@@ -1042,6 +1127,44 @@
         <div class="faq-a"><div class="faq-a-inner">Yes. Membership is month-to-month with no commitment. You get a 14-day free trial to experience everything before being charged. Cancel at any time through Whop and you won't be billed again.</div></div>
       </div>
 
+    </div>
+  </div>
+</section>
+
+<!-- ── HOW TO JOIN ─────────────────────────────────────────────────────── -->
+<section class="how-join" id="how-to-join">
+  <div class="wrap--sm">
+    <div class="sec-hdr fade-up">
+      <p class="eyebrow">Get Started</p>
+      <h2>How to join<br><em>in 3 steps.</em></h2>
+    </div>
+    <div class="steps fade-up">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h4>Visit our Whop listing</h4>
+          <p>Click "Start Free Trial" below. Whop is our membership platform — signup takes under a minute.</p>
+        </div>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h4>Complete checkout — 14 days free</h4>
+          <p>Start your free trial. No charge until the trial ends, and you can cancel any time through Whop.</p>
+        </div>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h4>Join Discord &amp; receive live signals</h4>
+          <p>Whop sends your invite automatically. Once inside, signals fire to <code>#kimi-trades</code> the moment a trade executes.</p>
+        </div>
+      </div>
+    </div>
+    <div class="steps-cta fade-up">
+      <a href="https://whop.com/kimiinvest/kimi-invest-premium-early-access/" class="btn-primary" target="_blank" rel="noopener">Start Free Trial →</a>
     </div>
   </div>
 </section>
@@ -1319,6 +1442,85 @@ async function load() {
 
 load();
 setInterval(load, 5 * 60 * 1000);
+
+// ── PORTFOLIO MANAGER TRACK RECORD ──────────────────────────────────────
+let _pmChart = null;
+
+function buildPmChart(pts) {
+  const ctx = document.getElementById('pm-chart');
+  if (!ctx) return;
+  if (_pmChart) _pmChart.destroy();
+  _pmChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: pts.map(p => p.label),
+      datasets: [
+        {
+          label: 'Kimi Portfolio',
+          data: pts.map(p => p.portfolio_pct),
+          borderColor: '#F5E642',
+          backgroundColor: 'rgba(245,230,66,0.06)',
+          borderWidth: 2,
+          pointBackgroundColor: '#F5E642',
+          pointRadius: 4, pointHoverRadius: 7,
+          tension: 0.3, fill: true,
+        },
+        {
+          label: 'S&P 500',
+          data: pts.map(p => p.spy_pct),
+          borderColor: '#5865F2',
+          backgroundColor: 'rgba(88,101,242,0.04)',
+          borderWidth: 2,
+          pointBackgroundColor: '#5865F2',
+          pointRadius: 4, pointHoverRadius: 7,
+          tension: 0.3, fill: true,
+        }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#161616', borderColor: '#2A2A2A', borderWidth: 1,
+          titleColor: '#B0B0B0', bodyColor: '#E8E8E8',
+          callbacks: {
+            label: c => ` ${c.dataset.label}: ${c.parsed.y >= 0 ? '+' : ''}${c.parsed.y.toFixed(2)}%`,
+          }
+        }
+      },
+      scales: {
+        x: {
+          ticks: { color: '#6B6B6B', font: { size: 11 } },
+          grid: { color: 'rgba(42,42,42,0.6)' }, border: { color: '#2A2A2A' }
+        },
+        y: {
+          ticks: { color: '#6B6B6B', font: { size: 11 }, callback: v => (v >= 0 ? '+' : '') + v.toFixed(1) + '%' },
+          grid: { color: 'rgba(42,42,42,0.6)' }, border: { color: '#2A2A2A' }
+        }
+      }
+    }
+  });
+}
+
+async function loadPmPerformance() {
+  try {
+    const d = await (await fetch(`${API}/public-claude-performance`)).json();
+    if (!d.data_points || !d.data_points.length) return;
+    const sign = v => (v >= 0 ? '+' : '') + v.toFixed(2) + '%';
+    const portEl  = document.getElementById('tr-port');
+    const spyEl   = document.getElementById('tr-spy');
+    const alphaEl = document.getElementById('tr-alpha');
+    const sinceEl = document.getElementById('tr-since');
+    if (portEl)  { portEl.textContent  = sign(d.portfolio_pct); portEl.className  = 'tr-val ' + (d.portfolio_pct >= 0 ? 'g' : 'rd'); }
+    if (spyEl)   { spyEl.textContent   = sign(d.spy_pct);       spyEl.className   = 'tr-val ' + (d.spy_pct  >= 0 ? 'g' : 'rd'); }
+    if (alphaEl) { alphaEl.textContent = sign(d.alpha);         alphaEl.className = 'tr-val ' + (d.alpha >= 0 ? 'g' : 'rd'); }
+    if (sinceEl) sinceEl.textContent = d.inception || '—';
+    buildPmChart(d.data_points);
+  } catch (e) { console.error('PM performance fetch failed:', e); }
+}
+
+loadPmPerformance();
 </script>
 </body>
 </html>
