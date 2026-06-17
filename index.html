@@ -70,9 +70,34 @@
       color: var(--accent); text-transform: uppercase; margin-bottom: 18px;
     }
 
+    /* ── EARLY ACCESS BANNER ── */
+    .ea-bar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 300; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(245,230,66,0.07); border-bottom: 1px solid rgba(245,230,66,0.15);
+      font-size: 11px; letter-spacing: 0.4px; color: var(--muted); padding: 0 48px;
+    }
+    .ea-bar strong { color: var(--accent); font-weight: 700; }
+    .ea-bar-close {
+      position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+      background: none; border: none; color: var(--dim); cursor: pointer;
+      font-size: 15px; line-height: 1; padding: 4px 8px; font-family: inherit;
+      transition: color .2s;
+    }
+    .ea-bar-close:hover { color: var(--muted); }
+
+    /* ── 14-DAY TRIAL BADGE ── */
+    .trial-badge {
+      display: inline-flex; align-items: center;
+      background: rgba(245,230,66,0.09); border: 1px solid rgba(245,230,66,0.30);
+      color: var(--accent); font-size: 10px; font-weight: 800; letter-spacing: 2.5px;
+      padding: 7px 18px; margin-bottom: 18px; text-transform: uppercase;
+      animation: btn-glow 3s ease-in-out infinite;
+    }
+
     /* ── NAV ── */
     .nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      position: fixed; top: 36px; left: 0; right: 0; z-index: 200;
       backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
       background: rgba(10,10,10,0.88);
       border-bottom: 1px solid var(--border);
@@ -496,7 +521,7 @@
     .spots-note { font-size: 11px; color: var(--dim); }
 
     .price-row    { margin-bottom: 32px; }
-    .free-tag     { display: inline-block; background: rgba(245,230,66,.09); border: 1px solid rgba(245,230,66,.18); color: var(--accent); font-size: 10px; font-weight: 700; letter-spacing: 3px; padding: 5px 14px; margin-bottom: 10px; text-transform: uppercase; }
+    .free-tag     { display: inline-block; background: rgba(245,230,66,.12); border: 1px solid rgba(245,230,66,.35); color: var(--accent); font-size: 12px; font-weight: 800; letter-spacing: 3px; padding: 8px 20px; margin-bottom: 12px; text-transform: uppercase; animation: btn-glow 3s ease-in-out infinite; }
     .price-text   { font-size: 14px; color: var(--muted); }
     .price-text strong { color: var(--white); font-size: 20px; font-weight: 800; }
 
@@ -664,6 +689,12 @@
 </div>
 
 <!-- ── NAV ────────────────────────────────────────────────────────────── -->
+<!-- ── EARLY ACCESS BANNER ── -->
+<div class="ea-bar" id="ea-bar">
+  <strong>🚧 Early Access</strong> &nbsp;·&nbsp; Kimi Invest is actively being built — features, content, and pricing will evolve as we grow and improve.
+  <button class="ea-bar-close" onclick="closeEaBar()" aria-label="Dismiss">✕</button>
+</div>
+
 <nav class="nav">
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">
@@ -693,6 +724,7 @@
           AI-powered portfolio management, and deep market education.
         </p>
         <p class="hero-live" id="hero-sub">Loading performance data…</p>
+        <div class="trial-badge">✦ &nbsp;14-Day Free Trial — Limited Early Access</div>
         <div class="hero-ctas">
           <a href="https://whop.com/kimiinvest/kimi-invest-premium-early-access/" class="btn-primary">Join the Discord →</a>
           <a href="#performance" class="btn-outline">View Performance</a>
@@ -700,7 +732,7 @@
         <div class="hero-trust">
           <div class="trust-item"><span class="dot">✦</span> Live signals, real money</div>
           <div class="trust-item"><span class="dot">✦</span> Nothing hidden</div>
-          <div class="trust-item"><span class="dot">✦</span> 14-day free trial</div>
+          <div class="trust-item" style="color:var(--accent);font-weight:700"><span class="dot">✦</span> 14-day free trial</div>
         </div>
       </div>
 
@@ -1171,8 +1203,8 @@
       <div class="step">
         <div class="step-num">2</div>
         <div class="step-body">
-          <h4>Complete checkout — 14 days free</h4>
-          <p>Start your free trial. No charge until the trial ends, and you can cancel any time through Whop.</p>
+          <h4>Complete checkout — <span style="color:var(--accent)">14 days free</span></h4>
+          <p>Start your <strong>free 14-day trial</strong>. No charge until the trial ends, and you can cancel any time through Whop. No commitment.</p>
         </div>
       </div>
       <div class="step-connector"></div>
@@ -1214,7 +1246,7 @@
     </div>
 
     <div class="price-row">
-      <div class="free-tag">14 days free</div><br>
+      <div class="free-tag">✦ &nbsp;14-Day Free Trial</div><br>
       <div class="price-text">then <strong>$14.99</strong> / month</div>
     </div>
 
@@ -1552,6 +1584,14 @@ loadPmPerformance();
     document.getElementById('view-counter').style.display = 'flex';
   } catch(e) {}
 })();
+
+// ── EARLY ACCESS BANNER DISMISS ──────────────────────────────────────────
+function closeEaBar() {
+  const bar = document.getElementById('ea-bar');
+  const nav = document.querySelector('.nav');
+  if (bar) bar.style.display = 'none';
+  if (nav) nav.style.top = '0';
+}
 
 // ── CLICK TRACKING ───────────────────────────────────────────────────────
 document.addEventListener('click', function(e) {
