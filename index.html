@@ -535,6 +535,20 @@
     .btn-large:hover { opacity: .88; animation: none; box-shadow: 0 0 48px var(--aglow); }
     .cancel-note { font-size: 11px; color: var(--dim); margin-top: 14px; }
 
+    /* ── DISCORD CHANNEL TABS ── */
+    .discord-tabs { display: flex; gap: 4px; margin-bottom: 12px; }
+    .d-tab {
+      background: transparent; border: 1px solid var(--border);
+      color: var(--dim); font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+      padding: 7px 14px; cursor: pointer; text-transform: uppercase;
+      transition: all .2s; white-space: nowrap;
+    }
+    .d-tab:hover { border-color: var(--border-y); color: var(--muted); }
+    .d-tab.active { background: rgba(245,230,66,.08); border-color: rgba(245,230,66,.4); color: var(--accent); }
+    .dm-av.moses  { background: #ED4245; color: #fff; font-size: 10px; font-weight: 800; }
+    .dm-name.moses { color: #ED4245; }
+    .dm-disclaimer { font-size: 10px; color: var(--dim); font-style: italic; margin-top: 6px; border-top: 1px solid #2F3136; padding-top: 6px; }
+
     /* ── JOIN STEPS (inside final-cta) ── */
     .join-steps-label {
       font-size: 11px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase;
@@ -1025,6 +1039,18 @@
         <div class="benefit-desc">Every win and every loss posted publicly. The dashboard above is live — verify every trade before you commit to anything. No simulations, no selective sharing.</div>
         <div class="benefit-tag">Nothing hidden · Public record</div>
       </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">🚨</div>
+        <div class="benefit-title">Moses' Personal Trade Alerts</div>
+        <div class="benefit-desc">Moses shares his own trades in <code style="font-size:11px;color:var(--accent);background:rgba(245,230,66,.08);padding:1px 5px;">#moses-alerts</code>. These are long-term, high-conviction positions he personally researches — and occasionally short-term swing trades when the setup is right. Every alert includes his entry, thesis, and position type. <em style="color:var(--dim);font-style:normal;font-size:12px;display:block;margin-top:6px;">Not financial advice. Always do your own research.</em></div>
+        <div class="benefit-tag">Owner's personal trades · Research-backed</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">🧑‍💼</div>
+        <div class="benefit-title">Human Investor Alerts</div>
+        <div class="benefit-desc">Real people. Real capital. Vetted community contributors share their own trade setups, watchlists, and market reads — not bots, not paid shills. See how experienced investors think through a position from entry to exit.</div>
+        <div class="benefit-tag">Community contributors · Skin in the game</div>
+      </div>
     </div>
   </div>
 </section>
@@ -1040,6 +1066,7 @@
         <div class="channel-list">
           <div class="ch"><span class="ch-hash">#</span><span>『🔁』kimi-trades</span><span class="ch-live">● LIVE</span></div>
           <div class="ch"><span class="ch-hash">#</span><span>『📈』kimi-investments</span><span class="ch-live">● LIVE</span></div>
+          <div class="ch"><span class="ch-hash">#</span><span>『🚨』moses-alerts</span><span class="ch-live">● LIVE</span></div>
           <div class="ch"><span class="ch-hash">#</span><span>『💬』general</span><span class="ch-live">● LIVE</span></div>
           <div class="ch ch-dev"><span class="ch-hash">#</span><span>market-research</span><span class="ch-wip">◆ IN DEVELOPMENT</span></div>
           <div class="ch ch-dev"><span class="ch-hash">#</span><span>earnings-analysis</span><span class="ch-wip">◆ IN DEVELOPMENT</span></div>
@@ -1048,7 +1075,13 @@
       </div>
 
       <div class="fade-up">
-        <div class="discord-mock">
+        <div class="discord-tabs">
+          <button class="d-tab active" onclick="switchDiscordTab('kimi-trades',this)">🔁 kimi-trades</button>
+          <button class="d-tab" onclick="switchDiscordTab('moses-alerts',this)">🚨 moses-alerts</button>
+        </div>
+
+        <!-- kimi-trades mock -->
+        <div class="discord-mock" id="dt-kimi-trades">
           <div class="discord-top">
             <span class="d-hash">#</span>
             <span class="d-ch-name">『🔁』kimi-trades</span>
@@ -1074,6 +1107,42 @@
                   @ <span class="y">$589.61</span><br>
                   P&amp;L: <span class="g">+1.28% 🟢 WIN</span><br>
                   🕐 2:47 PM CDT — June 10, 2026
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- moses-alerts mock -->
+        <div class="discord-mock" id="dt-moses-alerts" style="display:none">
+          <div class="discord-top">
+            <span class="d-hash">#</span>
+            <span class="d-ch-name">『🚨』moses-alerts</span>
+          </div>
+          <div class="discord-msgs">
+            <div class="dm">
+              <div class="dm-av moses">M</div>
+              <div>
+                <div class="dm-hdr"><span class="dm-name moses">Moses</span><span class="dm-time">Today at 10:22 AM</span></div>
+                <div class="dm-txt">
+                  🚨 <strong style="color:#fff">ADDING POSITION — NVDA</strong><br>
+                  @ <span class="y">$118.40</span><br>
+                  Type: Long-term | High conviction<br>
+                  Thesis: Dominant AI infrastructure play — data center &amp; inference demand accelerating into H2 2026. I've been in this since $85 and adding here.<br>
+                  <div class="dm-disclaimer">Not financial advice. Do your own research before making any trades.</div>
+                </div>
+              </div>
+            </div>
+            <div class="dm">
+              <div class="dm-av moses">M</div>
+              <div>
+                <div class="dm-hdr"><span class="dm-name moses">Moses</span><span class="dm-time">Today at 2:05 PM</span></div>
+                <div class="dm-txt">
+                  📋 <strong style="color:#fff">SWING — TSLA (short-term)</strong><br>
+                  @ <span class="y">$312.10</span><br>
+                  Type: Swing trade | 1–2 week hold<br>
+                  Watching for breakout above $320 resistance. Will update when I exit.<br>
+                  <div class="dm-disclaimer">Not financial advice. Do your own research before making any trades.</div>
                 </div>
               </div>
             </div>
@@ -1661,6 +1730,13 @@ document.addEventListener('click', function(e) {
     });
   }
 });
+
+function switchDiscordTab(tab, btn) {
+  document.querySelectorAll('.discord-mock[id^="dt-"]').forEach(el => el.style.display = 'none');
+  document.querySelectorAll('.d-tab').forEach(el => el.classList.remove('active'));
+  document.getElementById('dt-' + tab).style.display = '';
+  btn.classList.add('active');
+}
 </script>
 </body>
 </html>
