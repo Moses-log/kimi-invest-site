@@ -762,6 +762,146 @@
     }
     .disclaimer-body p + p { margin-top: 12px; }
     .disclaimer-body strong { color: var(--muted); font-weight: 600; }
+
+    /* ══════════════════════════════════════════════════════════════
+       MOBILE RESPONSIVE  (≤ 600 px)
+       ══════════════════════════════════════════════════════════════ */
+    @media (max-width: 600px) {
+
+      /* ── Containers ── */
+      .wrap, .wrap--sm     { padding: 0 16px; }
+      .nav-inner           { padding: 0 16px; height: 56px; }
+      .nav                 { top: 36px; }
+      .disclaimer-inner    { padding: 0 16px; }
+
+      /* ── Early access bar ── */
+      .ea-bar              { font-size: 10px; padding: 0 36px 0 12px; letter-spacing: 0; }
+
+      /* ── Hero ── */
+      .hero                { padding: 96px 0 56px; min-height: unset; }
+      .hero h1             { letter-spacing: -1.2px; margin-bottom: 16px; }
+      .hero-sub            { font-size: 14px; margin-bottom: 24px; }
+      .trial-badge         { font-size: 9px; letter-spacing: 1.5px; padding: 6px 14px; margin-bottom: 14px; }
+      .hero-ctas           { flex-direction: column; gap: 10px; margin-bottom: 28px; }
+      .hero-ctas .btn-primary,
+      .hero-ctas .btn-outline { width: 100%; text-align: center; padding: 16px 20px; }
+      .hero-trust          { gap: 10px; }
+      .trust-item          { font-size: 11px; }
+
+      /* ── Section vertical padding ── */
+      .performance, .benefits, .ai-section, .education,
+      .community, .research, .signal-streams, .track-record,
+      .faq, .how-join, .free-discord { padding-top: 64px; padding-bottom: 64px; }
+      .final-cta           { padding: 72px 0 60px; }
+      .disclaimer          { padding: 48px 0; }
+
+      /* ── Section headers ── */
+      .sec-hdr             { margin-bottom: 36px; }
+      .sec-hdr h2          { letter-spacing: -1px; }
+      .sec-hdr p           { font-size: 13px; }
+      .eyebrow             { font-size: 9px; margin-bottom: 12px; }
+
+      /* ── Stats strip ── */
+      .strip-stat          { padding: 20px 12px; }
+      .strip-val           { font-size: 26px; }
+      .strip-label         { font-size: 8px; letter-spacing: 2px; }
+      .strip-sub           { font-size: 10px; }
+
+      /* ── Performance: chart ── */
+      .chart-card          { padding: 18px 14px; }
+      .chart-hdr           { flex-direction: column; gap: 6px; margin-bottom: 16px; }
+      .chart-wrap          { height: 200px; }
+
+      /* ── Performance: table — horizontal scroll so it never clips ── */
+      .table-card          { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      table                { min-width: 320px; }
+      td, thead th         { padding: 11px 12px; }
+
+      /* ── Summary bar ── */
+      .summary-bar         { gap: 12px; padding: 14px 12px; }
+      .sum-item            { font-size: 12px; }
+
+      /* ── AI section ── */
+      .ai-how              { padding: 22px 18px; }
+      .ai-how p            { font-size: 12px; }
+      /* Signal action cards: 2-col is too cramped at phone width */
+      .signal-grid         { grid-template-columns: 1fr; gap: 8px; }
+      .sig-desc            { font-size: 11px; }
+
+      /* ── Track record ── */
+      .tr-stat             { padding: 16px 10px; }
+      .tr-val              { font-size: 20px; }
+      .tr-chart-wrap       { padding: 16px 12px; height: 240px; }
+      .tr-legend           { gap: 16px; }
+      .tr-leg-item         { font-size: 10px; }
+
+      /* ── Benefits ── */
+      .benefit-card        { padding: 28px 18px; }
+
+      /* ── Signal streams ── */
+      .ss-card             { padding: 28px 18px; }
+      .ss-title            { font-size: 16px; }
+      .ss-desc             { font-size: 12px; }
+
+      /* ── Discord community section ── */
+      .community-left h3   { font-size: 22px; letter-spacing: -0.5px; }
+      .community-left p    { font-size: 13px; }
+      .ch                  { padding: 10px 12px; font-size: 11px; }
+
+      /* Discord tabs: scroll horizontally instead of wrapping/overflowing */
+      .discord-tabs        { overflow-x: auto; -webkit-overflow-scrolling: touch;
+                             flex-wrap: nowrap; padding-bottom: 4px; gap: 4px; }
+      .d-tab               { flex-shrink: 0; padding: 6px 11px; font-size: 10px; letter-spacing: 1px; }
+
+      /* Discord mock messages */
+      .discord-msgs        { padding: 10px 12px; gap: 10px; }
+      .dm-txt              { font-size: 11px; }
+      .dm-name             { font-size: 11px; }
+      .dm-time             { font-size: 9px; }
+
+      /* ── Research ── */
+      .research-left h3    { font-size: 22px; letter-spacing: -0.5px; }
+      .ri                  { padding: 16px 16px; gap: 12px; }
+      .ri-title            { font-size: 13px; }
+      .ri-desc             { font-size: 11px; }
+
+      /* ── FAQ ── */
+      .faq-q               { padding: 16px 16px; font-size: 13px; }
+      .faq-a-inner         { padding: 0 16px 16px; font-size: 12px; }
+
+      /* ── How to join ── */
+      .step                { padding: 20px 16px; gap: 14px; }
+      .step-num            { width: 38px; height: 38px; font-size: 14px; flex-shrink: 0; }
+      .step-body h4        { font-size: 14px; }
+      .step-body p         { font-size: 12px; }
+      .step-connector      { margin-left: 35px; height: 20px; }
+
+      /* ── Final CTA ── */
+      .btn-large           { width: 100%; text-align: center; padding: 18px 24px;
+                             font-size: 12px; letter-spacing: 2px; }
+      .progress-track      { width: 100%; max-width: 280px; }
+      .value-list          { width: 100%; padding: 0; }
+      .value-list li       { font-size: 13px; }
+      .spots-count         { font-size: 16px; }
+      .price-text strong   { font-size: 18px; }
+      .cancel-note         { font-size: 10px; }
+
+      /* ── Free Discord section ── */
+      .btn-discord         { padding: 16px 32px; font-size: 12px; letter-spacing: 1.5px; }
+
+      /* ── Footer ── */
+      .footer-inner        { padding: 0 16px; gap: 14px; }
+      .footer-links        { flex-wrap: wrap; justify-content: center; gap: 12px; }
+      .footer-legal        { font-size: 9px; }
+    }
+
+    /* ── Very small phones (≤ 380px) ── */
+    @media (max-width: 380px) {
+      .hero h1             { font-size: 32px; letter-spacing: -1px; }
+      .btn-large           { font-size: 11px; letter-spacing: 1.5px; }
+      .strip-val           { font-size: 22px; }
+      .nav-logo span       { display: none; }  /* hide "KIMI INVEST" text, keep logo image */
+    }
   </style>
 </head>
 <body>
