@@ -231,6 +231,8 @@
     .strip-label { font-size: 9px; font-weight: 700; letter-spacing: 3px; color: var(--dim); text-transform: uppercase; margin-bottom: 10px; }
     .strip-val { font-size: 38px; font-weight: 800; color: var(--white); letter-spacing: -1px; margin-bottom: 4px; font-variant-numeric: tabular-nums; }
     .strip-val.acc { color: var(--accent); }
+    .strip-val.grn { color: var(--green); }
+    .strip-val.red { color: var(--red); }
     .strip-sub { font-size: 11px; color: var(--dim); }
     @media (max-width: 680px) {
       .strip-grid { grid-template-columns: repeat(2,1fr); }
@@ -302,12 +304,24 @@
     @media (max-width: 600px) { thead th.hide, td.hide { display: none; } }
 
     .summary-bar {
-      display: flex; justify-content: center; gap: 28px; flex-wrap: wrap;
-      padding: 22px 24px; background: var(--bg2);
+      display: grid; grid-template-columns: repeat(4,1fr);
+      background: var(--bg2);
       border: 1px solid var(--border); border-top: none;
     }
-    .sum-item { font-size: 13px; color: var(--muted); }
-    .sum-item .acc { color: var(--accent); font-weight: 700; }
+    .sum-item {
+      padding: 26px 20px; text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .sum-item:last-child { border-right: none; }
+    .sum-num {
+      display: block; font-size: 34px; font-weight: 800;
+      letter-spacing: -1px; margin-bottom: 6px;
+      font-variant-numeric: tabular-nums;
+    }
+    .sum-num.grn { color: var(--green); }
+    .sum-num.red { color: var(--red); }
+    .sum-num.acc { color: var(--accent); }
+    .sum-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; color: var(--dim); text-transform: uppercase; }
 
     /* ── BENEFITS ── */
     .benefits { padding: 110px 0; background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
@@ -818,8 +832,12 @@
       td, thead th         { padding: 11px 12px; }
 
       /* ── Summary bar ── */
-      .summary-bar         { gap: 12px; padding: 14px 12px; }
-      .sum-item            { font-size: 12px; }
+      .summary-bar         { grid-template-columns: repeat(2,1fr); }
+      .sum-item            { padding: 18px 12px; }
+      .sum-item:nth-child(2) { border-right: none; }
+      .sum-item:nth-child(3) { border-top: 1px solid var(--border); }
+      .sum-item:nth-child(4) { border-top: 1px solid var(--border); }
+      .sum-num             { font-size: 26px; }
 
       /* ── AI section ── */
       .ai-how              { padding: 22px 18px; }
@@ -1000,9 +1018,9 @@
   <div class="wrap">
     <div class="strip-grid">
       <div class="strip-stat">
-        <div class="strip-label">Total Trades</div>
+        <div class="strip-label">Record</div>
         <div class="strip-val" id="v-trades">—</div>
-        <div class="strip-sub">Closed positions</div>
+        <div class="strip-sub">Wins / Losses</div>
       </div>
       <div class="strip-stat">
         <div class="strip-label">Win Rate</div>
@@ -1818,7 +1836,8 @@ async function load() {
     document.getElementById('fc-spots').textContent   = d.spots_remaining + ' / 15';
 
     // Stats strip
-    document.getElementById('v-trades').textContent  = d.trades;
+    document.getElementById('v-trades').innerHTML =
+      `<span style="color:var(--green)">${d.wins}W</span><span style="color:var(--dim);font-size:0.6em;margin:0 4px">/</span><span style="color:var(--red)">${d.losses}L</span>`;
     document.getElementById('v-winrate').textContent = d.win_rate + '%';
     document.getElementById('v-pf').textContent      = d.profit_factor;
     document.getElementById('v-spots').textContent   = d.spots_remaining;
@@ -1831,10 +1850,10 @@ async function load() {
 
     // Summary bar
     document.getElementById('summary').innerHTML =
-      `<div class="sum-item"><span class="acc">${d.wins}</span> wins</div>` +
-      `<div class="sum-item"><span class="acc">${d.losses}</span> losses</div>` +
-      `<div class="sum-item"><span class="acc">${d.win_rate}%</span> win rate</div>` +
-      `<div class="sum-item"><span class="acc">${d.profit_factor}</span> profit factor</div>`;
+      `<div class="sum-item"><span class="sum-num grn">${d.wins}</span><span class="sum-label">Wins</span></div>` +
+      `<div class="sum-item"><span class="sum-num red">${d.losses}</span><span class="sum-label">Losses</span></div>` +
+      `<div class="sum-item"><span class="sum-num acc">${d.win_rate}%</span><span class="sum-label">Win Rate</span></div>` +
+      `<div class="sum-item"><span class="sum-num acc">${d.profit_factor}</span><span class="sum-label">Profit Factor</span></div>`;
 
     // Date note
     if (d.date_range.from) {
