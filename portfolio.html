@@ -44,7 +44,7 @@
       table { min-width: 420px; }
       td, thead th { padding: 10px 10px; }
       td.date { font-size: 11px; width: 90px; }
-      td.emoji { width: 28px; padding-right: 2px; font-size: 15px; }
+      td.emoji { width: 28px; padding-right: 2px; }
       .ticker-cell { font-size: 15px; }
       .action-label { font-size: 10px; letter-spacing: 1px; padding: 2px 6px; margin-left: 6px; }
       .page-header h1 { letter-spacing: -1px; }
@@ -69,7 +69,7 @@
 
     td { padding: 13px 20px; }
     td.date  { color: var(--muted); font-size: 13px; width: 120px; }
-    td.emoji { font-size: 17px; width: 36px; padding-right: 4px; }
+    td.emoji { width: 36px; padding-right: 4px; }
 
     .ticker-cell { font-size: 18px; font-weight: 900; letter-spacing: 1px; }
     .action-label {
@@ -142,6 +142,13 @@
 <script>
 const API = 'https://auto-trade-ro8k.onrender.com';
 
+const ICONS = {
+  BUY:         { color: 'var(--cyan)', svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="17" height="17"><circle cx="12" cy="12" r="9"/><polyline points="8 12.5 11 15.5 16 9"/></svg>' },
+  DOUBLE_DOWN: { color: '#FFA500',     svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="17" height="17"><path d="M12 21c3.3 0 6-2.5 6-6 0-2.8-1.6-4.3-3-6.5.3 1.8-.5 3-1.7 2.6.7-2.6-.6-5.4-3-7.1.2 2.4-1 4-2.5 5.6C6.4 11.1 6 13 6 15c0 3.5 2.7 6 6 6z"/></svg>' },
+  SELL:        { color: 'var(--red)',  svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="17" height="17"><circle cx="12" cy="12" r="9"/><line x1="9" y1="9" x2="15" y2="15"/><line x1="15" y1="9" x2="9" y2="15"/></svg>' },
+  TRIM:        { color: '#FF7040',    svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="17" height="17"><circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><line x1="8" y1="7.5" x2="20" y2="17"/><line x1="8" y1="16.5" x2="20" y2="7"/></svg>' },
+};
+
 async function load() {
   const tbody = document.getElementById('tbody');
   try {
@@ -165,8 +172,10 @@ async function load() {
       else resultHtml = '<td class="result-na">OPEN</td>';
 
       const actionClass = 'action-' + r.action;
+      const icon = ICONS[r.action];
+      const iconHtml = icon ? `<span style="color:${icon.color}">${icon.svg}</span>` : r.emoji;
       tr.innerHTML =
-        `<td class="emoji">${r.emoji}</td>` +
+        `<td class="emoji">${iconHtml}</td>` +
         `<td class="date">${r.date}</td>` +
         `<td><span class="ticker-cell">${r.ticker}</span>` +
         `<span class="action-label ${actionClass}">${r.action.replace('_', ' ')}</span></td>` +
