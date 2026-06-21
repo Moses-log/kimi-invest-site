@@ -57,7 +57,7 @@
       position: fixed; top: 0; left: 0;
       width: 100%; height: 100%;
       pointer-events: none; z-index: 1;
-      background: radial-gradient(700px circle at var(--mx,50%) var(--my,50%), rgba(245,230,66,0.025), transparent 70%);
+      background: radial-gradient(500px circle at var(--mx,50%) var(--my,50%), rgba(245,230,66,0.015), transparent 70%);
       transition: background 0.1s;
     }
 
@@ -94,7 +94,7 @@
       background: rgba(245,230,66,0.09); border: 1px solid rgba(245,230,66,0.30);
       color: var(--accent); font-size: 10px; font-weight: 800; letter-spacing: 2.5px;
       padding: 7px 18px; margin-bottom: 18px; text-transform: uppercase;
-      animation: btn-glow 3s ease-in-out infinite;
+      animation: btn-glow 4.5s ease-in-out infinite;
     }
 
     /* ── NAV ── */
@@ -146,9 +146,9 @@
     }
     .hero-badge::before {
       content: ''; width: 6px; height: 6px; background: var(--accent);
-      border-radius: 50%; animation: pulse-dot 2s ease-in-out infinite;
+      border-radius: 50%; animation: pulse-dot 2.5s ease-in-out infinite;
     }
-    @keyframes pulse-dot { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:.4; transform:scale(.7); } }
+    @keyframes pulse-dot { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:.7; transform:scale(.85); } }
 
     .hero h1 {
       font-size: clamp(38px, 5.5vw, 68px); font-weight: 900;
@@ -167,10 +167,10 @@
       font-size: 12px; font-weight: 800; letter-spacing: 2px;
       padding: 17px 40px; text-decoration: none; text-transform: uppercase;
       transition: opacity .2s, box-shadow .2s;
-      animation: btn-glow 3s ease-in-out infinite;
+      animation: btn-glow 4.5s ease-in-out infinite;
     }
     .btn-primary:hover { opacity:.88; animation:none; box-shadow:0 0 40px var(--aglow); }
-    @keyframes btn-glow { 0%,100%{box-shadow:0 0 0 transparent;} 50%{box-shadow:0 0 28px rgba(245,230,66,.32);} }
+    @keyframes btn-glow { 0%,100%{box-shadow:0 0 0 transparent;} 50%{box-shadow:0 0 17px rgba(245,230,66,.19);} }
 
     .btn-outline {
       display: inline-block; border: 1px solid var(--border); color: var(--muted);
@@ -204,7 +204,7 @@
     .float-card:nth-child(2) { top: 155px;  left: 10px;  width: 195px; animation: fc-float 6s ease-in-out infinite 2s; }
     .float-card:nth-child(3) { bottom: 110px; right: 20px; width: 200px; animation: fc-float 8s ease-in-out infinite 4s; }
     .float-card:nth-child(4) { bottom: 50px;  left: 30px;  width: 188px; animation: fc-float 5.5s ease-in-out infinite 1s; }
-    @keyframes fc-float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-10px);} }
+    @keyframes fc-float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-5px);} }
 
     .fc-label { font-size: 9px; font-weight: 700; letter-spacing: 2px; color: var(--dim); text-transform: uppercase; margin-bottom: 8px; }
     .fc-val { font-size: 26px; font-weight: 800; color: var(--white); margin-bottom: 4px; letter-spacing: -0.5px; }
@@ -545,7 +545,7 @@
     .spots-note { font-size: 11px; color: var(--dim); }
 
     .price-row    { margin-bottom: 32px; }
-    .free-tag     { display: inline-block; background: rgba(245,230,66,.12); border: 1px solid rgba(245,230,66,.35); color: var(--accent); font-size: 12px; font-weight: 800; letter-spacing: 3px; padding: 8px 20px; margin-bottom: 12px; text-transform: uppercase; animation: btn-glow 3s ease-in-out infinite; }
+    .free-tag     { display: inline-block; background: rgba(245,230,66,.12); border: 1px solid rgba(245,230,66,.35); color: var(--accent); font-size: 12px; font-weight: 800; letter-spacing: 3px; padding: 8px 20px; margin-bottom: 12px; text-transform: uppercase; animation: btn-glow 4.5s ease-in-out infinite; }
     .price-text   { font-size: 14px; color: var(--muted); }
     .price-text strong { color: var(--white); font-size: 20px; font-weight: 800; }
 
@@ -554,7 +554,7 @@
       font-size: 13px; font-weight: 900; letter-spacing: 3px;
       padding: 20px 72px; text-decoration: none; text-transform: uppercase;
       transition: opacity .2s, box-shadow .2s;
-      animation: btn-glow 3s ease-in-out infinite;
+      animation: btn-glow 4.5s ease-in-out infinite;
     }
     .btn-large:hover { opacity: .88; animation: none; box-shadow: 0 0 48px var(--aglow); }
     .cancel-note { font-size: 11px; color: var(--dim); margin-top: 14px; }
@@ -785,7 +785,7 @@
       background: var(--bg2); border: 1px solid var(--border-y);
       padding: 16px 32px; margin-bottom: 12px;
     }
-    .edu-coming-badge .dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; animation: pulse-dot 2s ease-in-out infinite; }
+    .edu-coming-badge .dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; animation: pulse-dot 2.5s ease-in-out infinite; }
     .edu-coming-badge span { font-size: 13px; font-weight: 700; letter-spacing: 3px; color: var(--accent); text-transform: uppercase; }
     .edu-coming-sub { font-size: 12px; color: var(--dim); letter-spacing: 1px; }
     .edu-coming .edu-grid { opacity: .2; pointer-events: none; user-select: none; }
