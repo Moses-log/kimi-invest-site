@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kimi Invest — Stats for Nerds</title>
+  <style>
+    :root {
+      --bg:     #000000;
+      --card:   #0e0e09;
+      --border: #2a2500;
+      --cyan:   #FFE000;
+      --red:    #ff4d4d;
+      --white:  #ffffff;
+      --muted:  #7a7050;
+      --green:  #00C853;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--white); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased; }
+    .container { max-width: 760px; margin: 0 auto; padding: 56px 24px 80px; }
+
+    .nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 48px; }
+    .nav .logo-mark { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav .logo-mark img { height: 30px; width: 30px; object-fit: contain; }
+    .nav .logo-mark span { font-size: 13px; font-weight: 900; letter-spacing: 3px; color: var(--white); }
+    .nav .back { color: var(--cyan); font-size: 12px; font-weight: 700; letter-spacing: 2px; text-decoration: none; }
+    .nav .back:hover { opacity: .75; }
+
+    .page-header { margin-bottom: 48px; }
+    .page-header .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 4px; color: var(--cyan); margin-bottom: 10px; }
+    .page-header h1 { font-size: clamp(32px, 6vw, 52px); font-weight: 900; letter-spacing: -2px; margin-bottom: 8px; }
+    .page-header .sub { color: var(--muted); font-size: 14px; line-height: 1.6; }
+
+    .ratio-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 48px; }
+    @media (max-width: 520px) { .ratio-grid { grid-template-columns: 1fr; } }
+
+    .ratio-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 32px 28px;
+    }
+    .ratio-card .label {
+      font-size: 11px; font-weight: 700; letter-spacing: 3px; color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .ratio-card .value {
+      font-size: 56px; font-weight: 900; letter-spacing: -3px; line-height: 1;
+      color: var(--cyan);
+      margin-bottom: 16px;
+    }
+    .ratio-card .value.neutral { color: var(--white); }
+    .ratio-card .value.negative { color: var(--red); }
+    .ratio-card .desc {
+      font-size: 13px; color: var(--muted); line-height: 1.6;
+      border-top: 1px solid var(--border);
+      padding-top: 14px;
+      margin-top: 4px;
+    }
+    .ratio-card .desc strong { color: var(--white); }
+
+    .explainer {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 28px;
+      margin-bottom: 32px;
+    }
+    .explainer h2 { font-size: 13px; font-weight: 700; letter-spacing: 2px; color: var(--cyan); margin-bottom: 14px; }
+    .explainer p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
+    .explainer p:last-child { margin-bottom: 0; }
+    .explainer strong { color: var(--white); }
+
+    footer { border-top: 1px solid var(--border); padding: 24px 0; text-align: center; margin-top: 40px; }
+    footer p { font-size: 12px; color: var(--muted); }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <nav class="nav">
+    <a href="index.html" class="logo-mark">
+      <img src="logo.png" alt="Kimi Invest">
+      <span>KIMI INVEST</span>
+    </a>
+    <a href="trades.html" class="back">&larr; BACK TO TRADES</a>
+  </nav>
+
+  <div class="page-header">
+    <p class="eyebrow">SPY · KIMI STRATEGY</p>
+    <h1>STATS FOR NERDS</h1>
+    <p class="sub" id="sub">Loading...</p>
+  </div>
+
+  <div class="ratio-grid">
+    <div class="ratio-card">
+      <div class="label">SHARPE RATIO</div>
+      <div class="value" id="sharpe">—</div>
+      <div class="desc">
+        <strong>Return per unit of total risk.</strong> Measures how much return you're getting for the volatility you're taking on. Higher is better. Above 1.0 is good; above 2.0 is exceptional.
+      </div>
+    </div>
+    <div class="ratio-card">
+      <div class="label">SORTINO RATIO</div>
+      <div class="value" id="sortino">—</div>
+      <div class="desc">
+        <strong>Return per unit of downside risk only.</strong> Like Sharpe, but ignores upside volatility — only penalizes losing trades. A fairer measure for strategies that occasionally have big wins.
+      </div>
+    </div>
+  </div>
+
+  <div class="explainer">
+    <h2>HOW THESE ARE CALCULATED</h2>
+    <p>Both ratios are computed <strong>per-trade</strong> (not annualized), using each closed SPY round-trip as one observation. The minimum acceptable return (MAR) is set to <strong>0%</strong> — meaning any losing trade counts against the downside deviation.</p>
+    <p><strong>Sharpe</strong> = mean trade return ÷ standard deviation of all trade returns.</p>
+    <p><strong>Sortino</strong> = mean trade return ÷ downside deviation (standard deviation of losing trades only, measured against MAR=0).</p>
+    <p>Because these are per-trade rather than annualized, values will differ from annualized versions you'd see on fund fact sheets. Per-trade ratios are more stable with a small trade count and more honest than extrapolating an annualized number from a few months of data.</p>
+  </div>
+
+</div>
+<footer><div class="container"><p>Past performance &ne; future results. Not financial advice. Trading involves risk of loss.</p></div></footer>
+
+<script>
+const API = 'https://auto-trade-ro8k.onrender.com';
+
+async function load() {
+  try {
+    const d = await (await fetch(`${API}/public-stats`)).json();
+
+    document.getElementById('sub').textContent =
+      `Based on ${d.trades} closed trades · ${d.date_range.from} – ${d.date_range.to}`;
+
+    function setRatio(id, val) {
+      const el = document.getElementById(id);
+      if (val == null) { el.textContent = 'N/A'; el.classList.add('neutral'); return; }
+      el.textContent = val.toFixed(2);
+      if (val < 0) el.classList.add('negative');
+      else if (val < 1) el.classList.add('neutral');
+    }
+
+    setRatio('sharpe',  d.sharpe);
+    setRatio('sortino', d.sortino);
+  } catch(e) {
+    document.getElementById('sub').textContent = 'Failed to load — try again shortly.';
+    console.error(e);
+  }
+}
+load();
+</script>
+</body>
+</html>

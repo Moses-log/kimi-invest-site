@@ -79,6 +79,16 @@
 
     .note { font-size: 12px; color: var(--muted); text-align: center; }
 
+    .nerd-btn {
+      display: inline-block;
+      font-size: 11px; font-weight: 700; letter-spacing: 2px;
+      color: var(--muted); text-decoration: none;
+      border: 1px solid var(--border);
+      padding: 8px 16px;
+      transition: color .15s, border-color .15s;
+    }
+    .nerd-btn:hover { color: var(--cyan); border-color: var(--cyan); }
+
     footer { border-top: 1px solid var(--border); padding: 24px 0; text-align: center; margin-top: 40px; }
     footer p { font-size: 12px; color: var(--muted); }
 
@@ -123,6 +133,10 @@
   </div>
 
   <p class="note">Showing up to 100 most recent completed trades. Stats above reflect all historical trades.</p>
+
+  <div style="text-align:center; margin-top:28px;">
+    <a href="stats.html" class="nerd-btn">STATS FOR NERDS →</a>
+  </div>
 
 </div>
 <footer><div class="container"><p>Past performance &ne; future results. Not financial advice. Trading involves risk of loss.</p></div></footer>
