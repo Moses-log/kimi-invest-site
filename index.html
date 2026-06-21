@@ -456,15 +456,19 @@
     @media (max-width: 860px) { .community-inner { grid-template-columns: 1fr; gap: 44px; } }
     .community-left h3 { font-size: 30px; font-weight: 800; letter-spacing: -1px; color: var(--white); line-height: 1.2; margin-bottom: 16px; }
     .community-left p  { font-size: 14px; color: var(--muted); line-height: 1.75; margin-bottom: 28px; }
-    .channel-list { display: flex; flex-direction: column; gap: 6px; }
-    .ch {
-      display: flex; align-items: center; gap: 10px; padding: 11px 15px;
-      background: var(--bg2); border: 1px solid var(--border);
-      font-size: 12px; color: var(--muted); transition: border-color .2s, color .2s;
-    }
-    .ch:hover { border-color: var(--border-y); color: var(--white); }
-    .ch-hash { color: var(--dim); font-weight: 700; }
-    .ch-live { margin-left: auto; font-size: 9px; font-weight: 700; letter-spacing: 1px; color: var(--green); }
+    .discord-sidebar { background: #2B2D31; border: 1px solid #1E1F22; padding: 8px 6px 12px; display: flex; flex-direction: column; }
+    .ch-cat { display: flex; align-items: center; justify-content: space-between; padding: 14px 8px 4px; }
+    .ch-cat:first-child { padding-top: 8px; }
+    .ch-cat-label { display: flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700; letter-spacing: .3px; text-transform: uppercase; color: #949BA4; }
+    .ch-cat-label .chev { font-size: 9px; }
+    .ch-cat-add { color: #949BA4; font-size: 15px; font-weight: 400; line-height: 1; }
+    .ch-row { display: flex; align-items: center; gap: 6px; padding: 6px 8px; margin: 0 2px; border-radius: 4px; font-size: 13px; color: #949BA4; transition: background .15s, color .15s; }
+    .ch-row:hover, .ch-row.active { background: #35373C; color: #F2F3F5; }
+    .ch-row.active { font-weight: 600; }
+    .ch-row .ch-hash { color: #80848E; font-weight: 600; font-size: 15px; }
+    .ch-row .ch-badge { margin-left: auto; }
+    .ch-row.ch-dev { opacity: .4; }
+    .ch-row .ch-wip { margin-left: auto; font-size: 9px; font-weight: 700; letter-spacing: .5px; color: var(--accent); text-transform: uppercase; }
 
     /* Discord mock */
     .discord-mock { background: #1E1F22; border: 1px solid #2F3136; overflow: hidden; }
@@ -590,6 +594,16 @@
     .dm-av.gabe   { background: #57F287; color: #0A0800; font-size: 10px; font-weight: 800; }
     .dm-name.gabe  { color: #57F287; }
     .dm-disclaimer { font-size: 10px; color: var(--dim); font-style: italic; margin-top: 6px; border-top: 1px solid #2F3136; padding-top: 6px; }
+    .dm-av.jp     { background: #FAA61A; color: #0A0800; font-size: 10px; font-weight: 800; }
+    .dm-name.jp   { color: #FAA61A; }
+    .dm-av.hoang  { background: #9B59B6; color: #fff; font-size: 10px; font-weight: 800; }
+    .dm-name.hoang { color: #9B59B6; }
+    .d-embed             { background: #2B2D31; border-left: 4px solid #23A55A; border-radius: 3px; padding: 10px 14px; margin-top: 2px; max-width: 100%; }
+    .d-embed-status      { display: flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 600; color: #F2F3F5; }
+    .d-embed-dot         { width: 8px; height: 8px; border-radius: 50%; background: #23A55A; flex-shrink: 0; }
+    .d-embed-field       { margin-top: 9px; }
+    .d-embed-field-name  { font-size: 12px; font-weight: 700; color: #F2F3F5; }
+    .d-embed-field-value { font-size: 12px; color: #DBDEE1; margin-top: 2px; }
 
     /* ── JOIN STEPS (inside final-cta) ── */
     .join-steps-label {
