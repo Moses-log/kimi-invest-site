@@ -470,8 +470,9 @@
     .ch-row { display: flex; align-items: center; gap: 6px; padding: 6px 8px; margin: 0 2px; border-radius: 4px; font-size: 13px; color: #949BA4; transition: background .15s, color .15s; }
     .ch-row:hover, .ch-row.active { background: #35373C; color: #F2F3F5; }
     .ch-row.active { font-weight: 600; }
-    .ch-row .ch-hash { color: #80848E; font-weight: 600; font-size: 15px; }
-    .ch-row .ch-badge { margin-left: auto; }
+    .ch-row .ch-hash { color: #80848E; font-weight: 600; font-size: 15px; flex-shrink: 0; }
+    .ch-row .ch-name { min-width: 0; overflow-wrap: anywhere; }
+    .ch-row .ch-badge { margin-left: auto; flex-shrink: 0; }
     .ch-row.ch-dev { opacity: .4; }
     .ch-row .ch-wip { margin-left: auto; font-size: 9px; font-weight: 700; letter-spacing: .5px; color: var(--accent); text-transform: uppercase; }
 
@@ -584,7 +585,7 @@
     @media (max-width: 740px) { .signal-streams-grid { grid-template-columns: 1fr; } }
 
     /* ── DISCORD CHANNEL TABS ── */
-    .discord-tabs { display: flex; gap: 4px; margin-bottom: 12px; }
+    .discord-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
     .d-tab {
       background: transparent; border: 1px solid var(--border);
       color: var(--dim); font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
@@ -1438,30 +1439,30 @@
             <span class="ch-cat-label"><span class="chev">▾</span> Premium Alerts</span>
             <span class="ch-cat-add">+</span>
           </div>
-          <div class="ch-row"><span class="ch-hash">#</span><span>『🚨』moses-alerts</span><span class="ch-badge premium">PREMIUM</span></div>
-          <div class="ch-row"><span class="ch-hash">#</span><span>『🚨』gabe-alerts</span><span class="ch-badge premium">PREMIUM</span></div>
-          <div class="ch-row"><span class="ch-hash">#</span><span>『🚨』jerome-powell-alerts</span><span class="ch-badge premium">PREMIUM</span></div>
+          <div class="ch-row"><span class="ch-hash">#</span><span class="ch-name">『🚨』moses-alerts</span><span class="ch-badge premium">PREMIUM</span></div>
+          <div class="ch-row"><span class="ch-hash">#</span><span class="ch-name">『🚨』gabe-alerts</span><span class="ch-badge premium">PREMIUM</span></div>
+          <div class="ch-row"><span class="ch-hash">#</span><span class="ch-name">『🚨』jerome-powell-alerts</span><span class="ch-badge premium">PREMIUM</span></div>
 
           <div class="ch-cat">
             <span class="ch-cat-label"><span class="chev">▾</span> Premium Bot Alerts</span>
             <span class="ch-cat-add">+</span>
           </div>
-          <div class="ch-row"><span class="ch-hash">#</span><span>『🔁』hoang-trades</span><span class="ch-badge premium">PREMIUM</span></div>
-          <div class="ch-row"><span class="ch-hash">#</span><span>『🔁』kimi-trades</span><span class="ch-badge premium">PREMIUM</span></div>
-          <div class="ch-row"><span class="ch-hash">#</span><span>『📈』kimi-investments</span><span class="ch-badge premium">PREMIUM</span></div>
-          <div class="ch-row"><span class="ch-hash">#</span><span>『📈』yabe-investments</span><span class="ch-badge premium">PREMIUM</span></div>
+          <div class="ch-row"><span class="ch-hash">#</span><span class="ch-name">『🔁』hoang-trades</span><span class="ch-badge premium">PREMIUM</span></div>
+          <div class="ch-row"><span class="ch-hash">#</span><span class="ch-name">『🔁』kimi-trades</span><span class="ch-badge premium">PREMIUM</span></div>
+          <div class="ch-row"><span class="ch-hash">#</span><span class="ch-name">『📈』kimi-investments</span><span class="ch-badge premium">PREMIUM</span></div>
+          <div class="ch-row"><span class="ch-hash">#</span><span class="ch-name">『📈』yabe-investments</span><span class="ch-badge premium">PREMIUM</span></div>
 
           <div class="ch-cat">
             <span class="ch-cat-label"><span class="chev">▾</span> Free Channels</span>
           </div>
-          <div class="ch-row"><span class="ch-hash">#</span><span>『📢』announcements</span><span class="ch-badge free">FREE</span></div>
-          <div class="ch-row"><span class="ch-hash">#</span><span>『💬』general</span><span class="ch-badge free">FREE</span></div>
+          <div class="ch-row"><span class="ch-hash">#</span><span class="ch-name">『📢』announcements</span><span class="ch-badge free">FREE</span></div>
+          <div class="ch-row"><span class="ch-hash">#</span><span class="ch-name">『💬』general</span><span class="ch-badge free">FREE</span></div>
 
           <div class="ch-cat">
             <span class="ch-cat-label"><span class="chev">▾</span> In Development</span>
           </div>
-          <div class="ch-row ch-dev"><span class="ch-hash">#</span><span>market-research</span><span class="ch-wip">◆ IN DEVELOPMENT</span></div>
-          <div class="ch-row ch-dev"><span class="ch-hash">#</span><span>earnings-analysis</span><span class="ch-wip">◆ IN DEVELOPMENT</span></div>
+          <div class="ch-row ch-dev"><span class="ch-hash">#</span><span class="ch-name">market-research</span><span class="ch-wip">◆ IN DEVELOPMENT</span></div>
+          <div class="ch-row ch-dev"><span class="ch-hash">#</span><span class="ch-name">earnings-analysis</span><span class="ch-wip">◆ IN DEVELOPMENT</span></div>
         </div>
       </div>
 
